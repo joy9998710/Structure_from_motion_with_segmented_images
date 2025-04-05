@@ -62,7 +62,7 @@ ffmpeg -i input.mp4 -q:v 1 frames/frame_%05d.jpg
 ```
 
 Segment individual images using SAM2   
-[code](./sam2/video_segmentation.py)
+[SAM2 code](./sam2/video_segmentation.py)
 
 ### 3. Reconstruct with COLMAP using segmented images   
 Once the segmented images are obtained, only the images containing the segmented target object are used for 3D reconstruction via COLMAP.
@@ -76,6 +76,8 @@ This approach ensures that the input to COLMAP remains focused and manageable, w
 [Full segmented images](./videos/masked_frames)   
 [Sampled original images](./videos/school_sample)   
 [Sampled segmented images](./videos/masked_frames_sample)
+
+[SfM code](./structure_from_motion.py)
 
 
 ## 4, Results
