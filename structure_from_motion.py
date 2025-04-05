@@ -5,7 +5,6 @@ import open3d as o3d
 import shutil
 import subprocess
 
-
 image_dir = "./videos/masked_frames_sample"
 output_dir = "./sfm"
 database_path = os.path.join(output_dir, "database.db")
@@ -16,6 +15,7 @@ sparse_model_dir = os.path.join(sparse_dir, "0")
 os.makedirs(sparse_model_dir, exist_ok=True)
 
 
+#Feature extraction with parameter tuning
 subprocess.run([
     "colmap", "feature_extractor",
     "--database_path", database_path,
@@ -38,6 +38,8 @@ subprocess.run([
     "--output_path", sparse_dir
 ])
 
+
+#Point cloud visualization
 sys.path.append(".")
 
 from read_write_model import read_points3D_binary
