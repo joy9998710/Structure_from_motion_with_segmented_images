@@ -23,7 +23,7 @@ The core segmentation module is based on [SAM2](https://github.com/facebookresea
 - matplotlib  
 - scikit-image  
 
-I highly recommend using a virtual environment to manage dependencies cleanly and avoid conflicts.  
+I highly recommend using a virtual environment to manage dependencies cleanly and avoid conflicts.   
 This project was developed on **WSL (Windows Subsystem for Linux)** using a virtual environment, which provided a clean and reproducible setup.
 
 To create and activate a virtual environment on WSL:
@@ -33,12 +33,49 @@ python3 -m venv sam2_env
 source sam2_env/bin/activate
 ```
 
-For the Structure-from-Motion component, COLMAP is used.
-COLMAP was installed via the system package manager on WSL as follows:
+For the Structure-from-Motion component, COLMAP is used.   
+COLMAP was installed via the system package manager on WSL as follows:   
 
 ```bash
 sudo apt update
 sudo apt install colmap
 ```
+
+## 3. Workflow
+
+### 1. Capture a video of the target object   
+Begin by recording a video that thoroughly captures the object of interest from all angles — ideally covering 360 degrees, including top and bottom views if possible.   
+Instead of using the original Segment Anything Model (SAM), this project employs SAM2, which introduces a novel memory bank mechanism.   
+This allows for consistent and context-aware segmentation across video frames, making it well-suited for video-based applications.   
+
+### 2. Segment the video using SAM2   
+The recorded video is segmented frame-by-frame using SAM2.
+To do this:
+
+- The video is first split into individual frames using `ffmpeg`
+
+- Each frame is then passed through the SAM2 segmentation model
+
+Split video into individual frames
+```bash
+ffmpeg -i input.mp4 -q:v 1 frames/frame_%05d.jpg
+```
+
+Segment individual images using SAM2   
+[code](./sam2/video_segmentation.py)
+
+### 3. Reconstruct with COLMAP using segmented images   
+Once the segmented images are obtained, only the images containing the segmented target object are used for 3D reconstruction via COLMAP.
+
+In this project, COLMAP is used to generate the SfM reconstruction based solely on the segmented results, minimizing background interference.   
+Since splitting the entire video resulted in a large number of frames, I sampled one frame every 5 frames to reduce redundancy and computational load.
+
+This approach ensures that the input to COLMAP remains focused and manageable, while still covering the full geometry of the object.
+
+[Full original images](./videos/school)   
+[Full segmented images](./videos/masked_frame)   
+[Sampled original images](./videos/school_sample)   
+[Sampled segmented images](./videos/masked_frame_sample)
+
 
 
