@@ -1,6 +1,6 @@
 # Structure from motion with segmented imgaes
 
-## Introduction
+## 1. Introduction
 
 This project presents a Structure-from-Motion (SfM) pipeline that integrates object-aware segmentation using SAM2 (Segment Anything Model 2)([paper link](https://arxiv.org/abs/2408.00714)).  
 Using SAM2, segmentation is performed on specific objects of interest, allowing the 3D reconstruction process to focus selectively on these segmented regions instead of the entire scene.
@@ -11,7 +11,7 @@ By supplying COLMAP with object-segmented images from SAM2, the pipeline aims to
 This approach is particularly useful in scenarios where accurate 3D modeling of individual objects is more important than reconstructing full environments.
 
 
-## Environment
+## 2. Environment
 
 This project is developed using Python 3.10 with PyTorch 2.1.0 and torchvision 0.16.0.  
 The core segmentation module is based on [SAM2](https://github.com/facebookresearch/sam2), which requires the following:
@@ -32,3 +32,13 @@ To create and activate a virtual environment on WSL:
 python3 -m venv sam2_env
 source sam2_env/bin/activate
 ```
+
+For the Structure-from-Motion component, COLMAP is used.
+COLMAP was installed via the system package manager on WSL as follows:
+
+```bash
+sudo apt update
+sudo apt install colmap
+```
+
+
