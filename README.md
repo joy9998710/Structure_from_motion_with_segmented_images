@@ -88,7 +88,8 @@ This approach ensures that the input to COLMAP remains focused and manageable, w
 [SfM code](./structure_from_motion.py)
 
 
-## 4, Results
+## 4, Results   
+The point cloud was visualized using Open3D.
 
 ### 1. Input Image (Sample of original image and segmented image)
 
