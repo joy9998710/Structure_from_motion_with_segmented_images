@@ -61,6 +61,14 @@ Split video into individual frames
 ffmpeg -i input.mp4 -q:v 1 frames/frame_%05d.jpg
 ```
 
+Get SAM2 Checkpoints   
+```bash
+cd checkpoints && \
+./download_ckpts.sh && \
+cd ..
+```
+In this project, I used **sam2.1_hiera_small.pt**.   
+
 Segment individual images using SAM2   
 [SAM2 code](./sam2/video_segmentation.py)
 
