@@ -73,9 +73,54 @@ Since splitting the entire video resulted in a large number of frames, I sampled
 This approach ensures that the input to COLMAP remains focused and manageable, while still covering the full geometry of the object.
 
 [Full original images](./videos/school)   
-[Full segmented images](./videos/masked_frame)   
+[Full segmented images](./videos/masked_frames)   
 [Sampled original images](./videos/school_sample)   
-[Sampled segmented images](./videos/masked_frame_sample)
+[Sampled segmented images](./videos/masked_frames_sample)
 
 
+## 4, Results
 
+### 1. Input Image (Sample of original image and segmented image)
+
+<p align="center">
+  <img src="./videos/school/00000.jpg" width="45%">
+  <img src="./videos/masked_frames/masked_00000.jpg" width="45%">
+</p>
+
+### 2. Structure from motion with original images ([Input images](./videos/school_sample))   
+
+<p align="center">
+  <img src="./demo/no_segmentation_sfm_0.png" width="30%">
+  <img src="./demo/no_segmentation_sfm_1.png" width="30%">
+  <img src="./demo/no_segmentation_sfm_2.png" width="30%">
+</p>
+
+### 3. Structure from motion with segmented images (without parameter tuning) ([Input images](./videos/masked_frames_sample))
+
+<p align="center">
+  <img src="./demo/segmented_only_sfm_0.png" width="45%">
+  <img src="./demo/segmented_only_sfm_1.png" width="45%">
+</p>
+
+Initially, only a small number of features were extracted from the segmented images, which made it difficult for COLMAP to perform reliable 3D reconstruction.   
+This issue was resolved by carefully tuning the feature extraction parameters and COLMAP settings, which significantly improved the number and quality of matched features.
+
+### 4. Structure from motion with segmented images (with parameter tuning) ([Input images](./videos/masked_frames_sample))
+
+![SfM_with_Segmentation](./demo/semented_sfm.gif)
+
+## 5. Advantages and Limitations   
+
+### 1. Advantages:
+
+- The pipeline allows for segmentation of only the target object, excluding irrelevant parts of the scene.
+
+- This significantly reduces the influence of background clutter, improving the semantic focus of the reconstruction.
+
+### 2. Limitations:
+
+- Since only the object is retained through masking, the lack of surrounding context may result in insufficient feature extraction.
+
+- To address this, it is necessary to tune the parameters of the feature extractor used in COLMAP (e.g., lowering thresholds in SIFT).
+
+- Alternatively, integrating more advanced feature extraction methods, such as deep learning-based descriptors, may enhance robustness and reconstruction quality in cases where traditional keypoints are sparse.
