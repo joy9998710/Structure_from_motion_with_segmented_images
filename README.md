@@ -106,6 +106,10 @@ The point cloud was visualized using Open3D.
   <img src="./demo/no_segmentation_sfm_2.png" width="30%">
 </p>
 
+Although the background was successfully reconstructed in 3D, the target object **the lion** was not reconstructed properly.
+
+
+
 ### 3. Structure from motion with segmented images (without parameter tuning) ([Input images](./videos/masked_frames_sample))
 
 <p align="center">
